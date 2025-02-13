@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1033809310694",
+    "project_id": "anujchat-a6fba",
+    "storage_bucket": "anujchat-a6fba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033809310694:android:60ffda77a490cb023ddc27",
+        "android_client_info": {
+          "package_name": "com.ksbm.anujchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIn7fUueVfxwkXNC_1SuDZ1UIs-oNA3Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
