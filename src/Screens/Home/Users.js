@@ -6,12 +6,14 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import MyStatusBar from '../../Components/MyStatusBar';
+import Loader from '../../Components/Loader';
 
 let id = '';
 
 const Users = () => {
   const navigation = useNavigation();
   const [Users, SetUsers] = useState([]);
+  const [visible, setVisible] = useState(false);
 
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const Users = () => {
   }, []);
 
   const getusers = async () => {
+    setVisible(true)
     id = await AsyncStorage.getItem("userId");
     let TempData = [];
     const Email = await AsyncStorage.getItem("Email");
@@ -35,19 +38,20 @@ const Users = () => {
             const userData = item.data();
             const userEmail = userData.Email?.trim();
 
-            
+
             if (userEmail !== trimmedEmail) {
               TempData.push(userData);
             }
           });
 
-          console.log("Fetched Users: ", TempData); 
-          SetUsers(TempData); 
-         
+          console.log("Fetched Users: ", TempData);
+          SetUsers(TempData);
+          setVisible(false)
+
         })
         .catch((error) => {
           console.error("Error fetching users: ", error);
-       
+
         });
     } else {
       console.error("Email not found in AsyncStorage");
@@ -61,7 +65,7 @@ const Users = () => {
   }, [Users]);
 
   const renderItem = ({ item }) => {
-    console.log("Rendering item: ", item); 
+    console.log("Rendering item: ", item);
     return (
       <View style={{ padding: 10 }}>
         <TouchableOpacity
@@ -94,27 +98,31 @@ const Users = () => {
     <View style={styles.container}>
       <MyStatusBar backgroundColor={colors.astrobook1} barStyle="light-content" />
 
+
+
       <View style={styles.header}>
         <Text style={styles.headertext}>Welcome to Hello Chat</Text>
       </View>
 
-    
-        <>
-          {Users.length === 0 ? (
-            <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                <Text style={{ fontSize:SCREEN_HEIGHT*0.025,fontWeight:'400' ,color:colors.black_color9 }}>No users found</Text>
-            </View>
-          
-          ) : (
-            <FlatList
-              data={Users}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => item.id || index.toString()}
-              contentContainerStyle={{ paddingBottom:SCREEN_HEIGHT*0.2 }}
-            />
-          )}
-        </>
-   
+
+      <>
+        {Users.length === 0 ? (
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: SCREEN_HEIGHT * 0.025, fontWeight: '400', color: colors.black_color9 }}>No users found</Text>
+          </View>
+
+        ) : (
+          <FlatList
+            data={Users}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => item.id || index.toString()}
+            contentContainerStyle={{ paddingBottom: SCREEN_HEIGHT * 0.2 }}
+          />
+        )}
+      </>
+
+
+      <Loader visible={visible} />
     </View>
   );
 };
