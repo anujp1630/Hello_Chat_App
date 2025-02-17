@@ -102,7 +102,7 @@ const Users = () => {
         <>
           {Users.length === 0 ? (
             <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                <Text style={{ fontSize:SCREEN_HEIGHT*0.01,fontWeight:'400' ,color:colors.black_color9 }}>No users found</Text>
+                <Text style={{ fontSize:SCREEN_HEIGHT*0.025,fontWeight:'400' ,color:colors.black_color9 }}>No users found</Text>
             </View>
           
           ) : (
