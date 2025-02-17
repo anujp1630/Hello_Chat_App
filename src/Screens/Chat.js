@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { useRoute } from '@react-navigation/native'
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../Components/Screen';
 import { colors } from '../Components/Config/Constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 const Chat = () => {
@@ -15,30 +16,30 @@ const Chat = () => {
 
 
 
- useEffect(() => {
-  const RecievedMsg = firestore()
-    .collection("Chats")
-    .doc(route.params.id + route.params.data.userId)
-    .collection("Messages")
-    .orderBy("createdAt", "desc");
+  useEffect(() => {
+    const RecievedMsg = firestore()
+      .collection("Chats")
+      .doc(route.params.id + route.params.data.userId)
+      .collection("Messages")
+      .orderBy("createdAt", "desc");
 
-  const unsubscribe = RecievedMsg.onSnapshot(querysnapshot => {
-    const AllMessages = querysnapshot.docs.map(item => {
-      return {
-        ...item._data,
-        createdAt: item._data.createdAt
-      };
+    const unsubscribe = RecievedMsg.onSnapshot(querysnapshot => {
+      const AllMessages = querysnapshot.docs.map(item => {
+        return {
+          ...item._data,
+          createdAt: item._data.createdAt
+        };
+      });
+      SetMessageList(AllMessages);
     });
-    SetMessageList(AllMessages);
-  });
 
-  return () => unsubscribe(); 
-}, []);
+    return () => unsubscribe();
+  }, []);
 
   const onSend = useCallback((messages = []) => {
     const msg = messages[0];
     const MyMsg = {
-      ...msg, 
+      ...msg,
       SendTo: route.params.id,
       SendBy: route.params.data.userId,
       createdAt: Date.parse(msg.createdAt)
@@ -62,12 +63,18 @@ const Chat = () => {
 
   }, [])
   return (
-    <ImageBackground 
-    source={require("../Assets/Images/chat_bg.png")}
-    style={{ flex: 1 }}>
-      <View style={{paddingVertical:SCREEN_HEIGHT*0.02,backgroundColor:colors.astrobook1,paddingHorizontal:SCREEN_WIDTH*0.04,alignItems:'center'}}>
+    <ImageBackground
+      source={require("../Assets/Images/chat_bg.png")}
+      style={{ flex: 1 }}>
+      <View style={{ paddingVertical: SCREEN_HEIGHT * 0.02, backgroundColor: colors.astrobook1, paddingHorizontal: SCREEN_WIDTH * 0.04,flexDirection:"row",alignItems:"center",gap:SCREEN_WIDTH*0.025}}>
 
-            <Text style={{color:colors.background_theme1,fontSize:SCREEN_HEIGHT*0.02,fontWeight:"500"}}> Hello Chat User</Text>
+        
+
+        <Image
+          style={{ height: SCREEN_HEIGHT * 0.05, width: SCREEN_WIDTH * 0.1, resizeMode: 'contain',  }}
+          source={require("../Assets/Images/AstroBookUser.png")}
+        />
+        <Text style={{ color: colors.background_theme1, fontSize: SCREEN_HEIGHT * 0.02, fontWeight: "500" }}>{route.params.data.Name}</Text>
 
       </View>
       <GiftedChat

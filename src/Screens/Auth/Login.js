@@ -7,6 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 import Loader from '../../Components/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyStatusBar from '../../Components/MyStatusBar';
+import * as Animatable from 'react-native-animatable';
 
 
 
@@ -89,17 +90,17 @@ const Login = () => {
 
             <View style={{ alignItems: "center" }}>
 
-                <Image
+                <Animatable.Image animation={'slideInUp'}
                     style={styles.Imagelogo}
                     source={require("../../Assets/Images/MAINLOGO.jpg")} />
             </View>
 
             <View style={styles.headingcontainer}>
-                <Text style={styles.heading}>Welcome To Chat App</Text>
+                <Animatable.Text animation={'slideInUp'} style={styles.heading}>Welcome To Chat App</Animatable.Text>
             </View>
 
 
-            <View style={styles.myconatiner}>
+            <Animatable.View  animation={'slideInUp'} style={styles.myconatiner}>
 
 
                 <View style={styles.InputConatiner}>
@@ -117,9 +118,11 @@ const Login = () => {
                 </View>
 
 
-            </View>
+            </Animatable.View>
 
-            <View style={styles.btnCONTAINER}>
+            <Animatable.View 
+            animation={'slideInUp'}
+            style={styles.btnCONTAINER}>
                 <TouchableOpacity
                     onPress={Login}
                     style={styles.btn}
@@ -127,7 +130,7 @@ const Login = () => {
                 >
                     <Text style={styles.btntext}>{isLoggingIn ? "Logging in..." : "Login"}</Text>
                 </TouchableOpacity>
-            </View>
+            </Animatable.View>
 
 
             <TouchableOpacity
@@ -135,7 +138,7 @@ const Login = () => {
                     navigation.navigate("Signup");
                 }}
                 style={{ alignItems: "center", paddingTop: SCREEN_HEIGHT * 0.025 }}>
-                <Text style={{ color: colors.astrobook1, fontWeight: "500", fontSize: SCREEN_HEIGHT * 0.02, textDecorationLine: "underline" }}>Or Sign Up</Text>
+                <Animatable.Text  animation={'slideInUp'} style={{ color: colors.astrobook1, fontWeight: "500", fontSize: SCREEN_HEIGHT * 0.02, textDecorationLine: "underline" }}>Or Sign Up</Animatable.Text>
             </TouchableOpacity>
 
             <Loader visible={visible} />

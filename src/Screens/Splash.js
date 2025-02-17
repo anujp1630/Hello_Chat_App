@@ -5,6 +5,8 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../Components/Screen'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import MyStatusBar from '../Components/MyStatusBar'
+import * as Animatable from 'react-native-animatable';
+import { SlideInUp } from 'react-native-reanimated'
 
 
 
@@ -35,7 +37,7 @@ const Splash = () => {
 
 
 
-            <Image
+            <Animatable.Image animation={'slideInUp'}
                 style={styles.Imagelogo}
                 source={require("../Assets/Images/MAINLOGO.jpg")} />
             

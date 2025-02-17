@@ -79,6 +79,7 @@ const Users = () => {
             marginVertical: 5,
             borderRadius: 10,
             elevation: 5,
+            alignItems:"center"
           }}>
           <View style={{ height: SCREEN_HEIGHT * 0.08, width: SCREEN_WIDTH * 0.2, justifyContent: "center" }}>
             <Image
